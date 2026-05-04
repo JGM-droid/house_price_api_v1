@@ -49,6 +49,35 @@ uvicorn main:app --reload
 - `GET /model/info` - model metadata (type, version, features, RMSE)
 - `POST /predict` - predict price from feature input
 
+## API Demo (curl)
+Run the server first:
+
+```powershell
+uvicorn main:app --reload
+```
+
+Then call the prediction endpoint:
+
+```powershell
+curl -X POST "http://127.0.0.1:8000/predict" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"total_images\":10,\"beds\":3,\"baths\":2.5,\"area\":1800.0,\"latitude\":40.7128,\"longitude\":-74.006,\"garden\":1,\"garage\":1,\"new_construction\":0,\"pool\":0,\"terrace\":1,\"air_conditioning\":1,\"parking\":1}"
+```
+
+Example response:
+
+```json
+{
+  "predicted_price": 358764.22,
+  "currency": "USD",
+  "model_version": "1.0.0"
+}
+```
+
+## Swagger Docs Screenshot
+
+![Swagger UI](docs/swagger-ui.png)
+
 ## Example Prediction Request
 ```json
 {
